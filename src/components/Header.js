@@ -20,7 +20,7 @@ function Header() {
 
         <Nav>
           <NavListWrap>
-            <NavList>
+            <NavList className="active">
               <a>
                 <img src="/images/nav-home.svg" alt="" />
                 <span>Home</span>
@@ -54,6 +54,26 @@ function Header() {
                 <span>Notifications</span>
               </a>
             </NavList>
+
+            <User>
+              <a>
+                <img src="/images/user.svg" alt="user" />
+                <span>Me</span>
+                <img src="/images/down-icon.svg" alt="arrow" />
+              </a>
+
+              <SignOut>
+                <a>Sign Out</a>
+              </SignOut>
+            </User>
+
+            <Work>
+              <a>
+                <img src="/images/nav-work.svg" alt="" />
+                <span>Work</span>
+                <img src="/images/down-icon.svg" alt="arrow" />
+              </a>
+            </Work>
           </NavListWrap>
         </Nav>
       </Content>
@@ -140,6 +160,20 @@ const NavListWrap = styled.ul`
   display: flex;
   flex-wrap: nowrap;
   list-style-type: none;
+
+  .active {
+    span:after {
+      content: "";
+      transfor: scaleX(1);
+      border-bottom: 2px solid var(--white, #fff);
+      bottom: 0;
+      left: 0;
+      position: absolute;
+      transition: transform 0.2s ease-in-out;
+      width: 100%;
+      border-color: rgba(0, 0, 0, 0.9);
+    }
+  }
 `;
 
 const NavList = styled.li`
@@ -178,6 +212,44 @@ const NavList = styled.li`
       }
     }
   }
+`;
+
+const SignOut = styled.div`
+  position: absolute;
+  top: 45px;
+  background: white;
+  border-radius: 0 0 5px 5px;
+  width: 100px;
+  height: 40px;
+  font-size: 16px;
+  transition-duration: 167ms;
+  text-align: none;
+  display: none;
+`;
+
+const User = styled(NavList)`
+  a > img {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+  }
+
+  span {
+    display: flex;
+    align-items: center;
+  }
+
+  &:hover {
+    ${SignOut} {
+      align-item: center;
+      display: flex;
+      justify-content: center;
+    }
+  }
+`;
+
+const Work = styled(User)`
+  border-left: 1px solid rgba(0, 0, 0, 0.08);
 `;
 
 export default Header;
