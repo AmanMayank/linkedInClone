@@ -1,4 +1,7 @@
 import styled from "styled-components";
+import LeftSide from "./LeftSide";
+import Main from "./Main";
+import RightSide from "./RightSide";
 
 function Home() {
   return (
@@ -12,9 +15,9 @@ function Home() {
         </p>
       </Section>
       <Layout>
-        <div>Left Side</div>
-        <div>Main</div>
-        <div>Right Side</div>
+        <LeftSide />
+        <Main />
+        <RightSide />
       </Layout>
     </Container>
   );
