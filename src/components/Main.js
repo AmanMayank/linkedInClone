@@ -1,5 +1,12 @@
 import styled from "styled-components";
-import { AiFillFileImage, AiTwotoneVideoCamera } from "react-icons/ai";
+import {
+  AiFillFileImage,
+  AiTwotoneVideoCamera,
+  AiFillLike,
+  AiOutlineComment,
+  AiOutlineShareAlt,
+  AiOutlineSend,
+} from "react-icons/ai";
 import { BsCalendarEvent, BsThreeDots } from "react-icons/bs";
 import { GrArticle } from "react-icons/gr";
 
@@ -70,6 +77,45 @@ function Main() {
               <img src="/images/green-1548945.jpg" alt="" />
             </a>
           </Sharedimg>
+
+          <SocialCounts>
+            <li>
+              <button>
+                <img
+                  src="https://static-exp1.licdn.com/sc/h/d310t2g24pvdy4pt1jkedo4yb"
+                  alt=""
+                />
+                <img
+                  src="https://static-exp1.licdn.com/sc/h/5thsbmikm6a8uov24ygwd914f"
+                  alt=""
+                />
+                <span>75</span>
+              </button>
+            </li>
+
+            <li>
+              <a>2 comments</a>
+            </li>
+          </SocialCounts>
+
+          <SocialActions>
+            <button>
+              <AiFillLike></AiFillLike>
+              <span>Like</span>
+            </button>
+            <button>
+              <AiOutlineComment></AiOutlineComment>
+              <span>Comments</span>
+            </button>
+            <button>
+              <AiOutlineShareAlt></AiOutlineShareAlt>
+              <span>Share</span>
+            </button>
+            <button>
+              <AiOutlineSend></AiOutlineSend>
+              <span>Send</span>
+            </button>
+          </SocialActions>
         </Article>
       </div>
     </Container>
@@ -232,6 +278,47 @@ const Sharedimg = styled.div`
     object-fit: contain;
     width: 100%;
     height: 100%;
+  }
+`;
+
+const SocialCounts = styled.ul`
+  line-height: 1.3;
+  display: flex;
+  align-items: flex-start;
+  overflow: auto;
+  margin: 0 16px;
+  padding: 8px 0;
+  border-bottom: 1px solid #e9e5df;
+  list-style: none;
+
+  li {
+    margin-right: 5px;
+    font-size: 12px;
+    button {
+      display: flex;
+    }
+  }
+`;
+
+const SocialActions = styled.div`
+  display: flex;
+  align-items: center;
+  margin: 0;
+  justify-content: flex-start;
+  min-height: 40px;
+  padding: 4px 8px;
+  button {
+    display: inline-flex;
+    align-items: center;
+    padding: 8px;
+    color: #0a66c2;
+    font-size: 16px;
+
+    @media (min-width: 768px) {
+      span {
+        margin-left: 8px;
+      }
+    }
   }
 `;
 
