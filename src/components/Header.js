@@ -1,10 +1,23 @@
+import { getAuth, signOut } from "firebase/auth";
+import { firebaseApp } from "../firebase";
 import styled from "styled-components";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+
+import { setSignOutState } from "../store";
 
 function Header() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const user = useSelector((state) => {
     return state.users;
   });
+
+  function handleAuth() {
+    dispatch(setSignOutState());
+    navigate("/");
+  }
 
   console.log("user", user);
   return (
@@ -74,7 +87,7 @@ function Header() {
                 </span>
               </a>
 
-              <SignOut>
+              <SignOut onClick={handleAuth}>
                 <a>Sign Out</a>
               </SignOut>
             </User>

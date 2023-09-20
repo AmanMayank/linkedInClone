@@ -9,12 +9,12 @@ import {
 } from "react-icons/ai";
 import { BsCalendarEvent, BsThreeDots } from "react-icons/bs";
 import { GrArticle } from "react-icons/gr";
+import PostModal from "./PostModal";
 
 function Main() {
   return (
     <Container>
       <ShareBox>
-        Share
         <div>
           <img src="/images/user.svg" alt="" />
           <button>Start a post</button>
@@ -118,6 +118,7 @@ function Main() {
           </SocialActions>
         </Article>
       </div>
+      <PostModal />
     </Container>
   );
 }
