@@ -1,6 +1,55 @@
+import {
+  getAuth,
+  signInWithPopup,
+  GoogleAuthProvider,
+  signOut,
+} from "firebase/auth";
+import { firebaseApp } from "../firebase";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { setUserLoginDetails, setSignOutState } from "../store";
 import styled from "styled-components";
+import { useEffect } from "react";
 
 function Login() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const user = useSelector((state) => {
+    return state.users;
+  });
+
+  useEffect(() => {
+    console.log("user.name", user.name !== null);
+    if (user.name !== "") {
+      navigate("/home");
+    }
+  }, [user.name]);
+
+  const handleAuth = async () => {
+    const auth = getAuth(firebaseApp);
+    if (user.name === "") {
+      try {
+        const provider = new GoogleAuthProvider();
+        const userData = await signInWithPopup(auth, provider);
+        console.log("user==", userData);
+        dispatch(setUserLoginDetails(userData.user));
+        console.log(userData.user);
+      } catch (err) {
+        console.log(err);
+      }
+    } else if (user.name !== "" || user.name !== null) {
+      signOut(auth)
+        .then(() => {
+          dispatch(setSignOutState());
+          navigate("/");
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+  };
+
   return (
     <Container>
       <Nav>
@@ -10,7 +59,7 @@ function Login() {
 
         <div>
           <Join>Join Now</Join>
-          <SignIn>Sign In</SignIn>
+          <SignIn onClick={handleAuth}>Sign In</SignIn>
         </div>
       </Nav>
 
@@ -21,7 +70,7 @@ function Login() {
         </Hero>
 
         <Form>
-          <Google>
+          <Google onClick={handleAuth}>
             <img src="/images/google.svg" alt="" />
             Sign in with Google
           </Google>

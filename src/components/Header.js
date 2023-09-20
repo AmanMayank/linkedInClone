@@ -1,6 +1,12 @@
 import styled from "styled-components";
+import { useSelector } from "react-redux";
 
 function Header() {
+  const user = useSelector((state) => {
+    return state.users;
+  });
+
+  console.log("user", user);
   return (
     <Container>
       <Content>
@@ -57,9 +63,15 @@ function Header() {
 
             <User>
               <a>
-                <img src="/images/user.svg" alt="user" />
-                <span>Me</span>
-                <img src="/images/down-icon.svg" alt="arrow" />
+                {user && user.photo ? (
+                  <img src={user.photo} alt="user" />
+                ) : (
+                  <img src="/images/user.svg" alt="user" />
+                )}
+                <span>
+                  Me
+                  <img src="/images/down-icon.svg" alt="arrow" />
+                </span>
               </a>
 
               <SignOut>
