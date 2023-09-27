@@ -1,3 +1,4 @@
+import { useState } from "react";
 import styled from "styled-components";
 import {
   AiFillFileImage,
@@ -12,16 +13,32 @@ import { GrArticle } from "react-icons/gr";
 import PostModal from "./PostModal";
 
 function Main() {
+  const [showModal, setShowModal] = useState(false);
+
+  const handleClick = (e) => {
+    console.log("coming here", showModal);
+    e.preventDefault();
+    if (e.target !== e.currentTarget) {
+      return;
+    }
+
+    if (showModal) {
+      setShowModal(false);
+    } else if (showModal === false) {
+      setShowModal(true);
+    } else {
+      setShowModal(false);
+    }
+  };
   return (
     <Container>
       <ShareBox>
         <div>
           <img src="/images/user.svg" alt="" />
-          <button>Start a post</button>
+          <button onClick={handleClick}>Start a post</button>
         </div>
         <div>
           <button>
-            {/* <img src="/images/photo-icon.svg" alt="" /> */}
             <div>
               <AiFillFileImage></AiFillFileImage>
             </div>
@@ -29,7 +46,6 @@ function Main() {
           </button>
 
           <button>
-            {/* <img src="/images/video-icon.svg" alt="" /> */}
             <div>
               <AiTwotoneVideoCamera></AiTwotoneVideoCamera>
             </div>
@@ -37,7 +53,6 @@ function Main() {
           </button>
 
           <button>
-            {/* <img src="/images/event-icon.svg" alt="" /> */}
             <div>
               <BsCalendarEvent></BsCalendarEvent>
             </div>
@@ -45,7 +60,6 @@ function Main() {
           </button>
 
           <button>
-            {/* <img src="/images/article-icon.svg" alt="" /> */}
             <div>
               <GrArticle></GrArticle>
             </div>
@@ -118,7 +132,7 @@ function Main() {
           </SocialActions>
         </Article>
       </div>
-      <PostModal />
+      <PostModal showModal={showModal} handleClick={handleClick} />
     </Container>
   );
 }

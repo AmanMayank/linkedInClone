@@ -7,49 +7,62 @@ import {
   AiOutlineComment,
 } from "react-icons/ai";
 
-function PostModal() {
+function PostModal(props) {
   const [editorText, setEditorText] = useState("");
 
+  const reset = (e) => {
+    setEditorText("");
+    props.handleClick(e);
+  };
+
   return (
-    <Container>
-      <Content>
-        <Header>
-          <h2>Create a post</h2>
-          <button>
-            <AiOutlineClose></AiOutlineClose>
-          </button>
-        </Header>
-        <SharedContent>
-          <UserInfo>
-            <img src="/images/user.svg" alt="" />
-            <span>Name</span>
-          </UserInfo>
-          <textarea
-            value={editorText}
-            onChange={(e) => setEditorText(e.target.value)}
-          ></textarea>
-        </SharedContent>
+    <>
+      {props.showModal && (
+        <Container>
+          <Content>
+            <Header>
+              <h2>Create a post</h2>
+              <button onClick={(e) => reset(e)}>
+                <AiOutlineClose></AiOutlineClose>
+              </button>
+            </Header>
+            <SharedContent>
+              <UserInfo>
+                <img src="/images/user.svg" alt="" />
+                <span>Name</span>
+              </UserInfo>
+              <Editor>
+                <textarea
+                  value={editorText}
+                  onChange={(e) => setEditorText(e.target.value)}
+                  placeholder="What do you want to talk about?"
+                  autoFocus={true}
+                ></textarea>
+              </Editor>
+            </SharedContent>
 
-        <SharedCreation>
-          <AttachAssets>
-            <AssetButton>
-              <AiOutlineShareAlt></AiOutlineShareAlt>
-            </AssetButton>
-            <AssetButton>
-              <AiFillPlaySquare></AiFillPlaySquare>
-            </AssetButton>
-          </AttachAssets>
+            <SharedCreation>
+              <AttachAssets>
+                <AssetButton>
+                  <AiOutlineShareAlt></AiOutlineShareAlt>
+                </AssetButton>
+                <AssetButton>
+                  <AiFillPlaySquare></AiFillPlaySquare>
+                </AssetButton>
+              </AttachAssets>
 
-          <ShareComment>
-            <AssetButton>
-              <AiOutlineComment></AiOutlineComment>
-            </AssetButton>
-          </ShareComment>
+              <ShareComment>
+                <AssetButton>
+                  <AiOutlineComment></AiOutlineComment>
+                </AssetButton>
+              </ShareComment>
 
-          <PostButton>Post</PostButton>
-        </SharedCreation>
-      </Content>
-    </Container>
+              <PostButton>Post</PostButton>
+            </SharedCreation>
+          </Content>
+        </Container>
+      )}
+    </>
   );
 }
 
@@ -94,7 +107,8 @@ const Header = styled.div`
     width: 40px;
     min-width: auto;
     color: rgba(0, 0, 0, 0.45);
-    svg {
+    svg,
+    img {
       pointer-events: none;
     }
   }
@@ -176,6 +190,22 @@ const PostButton = styled.button`
   color: white;
   &:hover {
     background: #004182;
+  }
+`;
+
+const Editor = styled.div`
+  padding: 12px 24 px;
+  textarea {
+    width: 100%;
+    min-height: 100px;
+    resize: none;
+  }
+
+  input {
+    width: 100%;
+    height: 35px;
+    font-size: 16px;
+    margin-bottom: 20px;
   }
 `;
 
