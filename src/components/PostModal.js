@@ -1,7 +1,15 @@
+import { useState } from "react";
 import styled from "styled-components";
-import { AiOutlineClose } from "react-icons/ai";
+import {
+  AiOutlineClose,
+  AiOutlineShareAlt,
+  AiFillPlaySquare,
+  AiOutlineComment,
+} from "react-icons/ai";
 
 function PostModal() {
+  const [editorText, setEditorText] = useState("");
+
   return (
     <Container>
       <Content>
@@ -16,7 +24,30 @@ function PostModal() {
             <img src="/images/user.svg" alt="" />
             <span>Name</span>
           </UserInfo>
+          <textarea
+            value={editorText}
+            onChange={(e) => setEditorText(e.target.value)}
+          ></textarea>
         </SharedContent>
+
+        <SharedCreation>
+          <AttachAssets>
+            <AssetButton>
+              <AiOutlineShareAlt></AiOutlineShareAlt>
+            </AssetButton>
+            <AssetButton>
+              <AiFillPlaySquare></AiFillPlaySquare>
+            </AssetButton>
+          </AttachAssets>
+
+          <ShareComment>
+            <AssetButton>
+              <AiOutlineComment></AiOutlineComment>
+            </AssetButton>
+          </ShareComment>
+
+          <PostButton>Post</PostButton>
+        </SharedCreation>
       </Content>
     </Container>
   );
@@ -79,6 +110,73 @@ const SharedContent = styled.div`
   padding: 8px 12px;
 `;
 
-const UserInfo = styled.div``;
+const UserInfo = styled.div`
+  display: flex;
+  align-items: center;
+  padding: 12px 24px;
+  svg,
+  img {
+    width: 48px;
+    height: 48px;
+    background-clip: content-box;
+    border: 2px solid transparent;
+    border-radius: 50%;
+  }
+  span {
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 1.5;
+    margin-left: 5px;
+  }
+`;
+
+const SharedCreation = styled.div`
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 24px 12px 16px;
+`;
+
+const AssetButton = styled.button`
+  display: flex;
+  align-items: center;
+  height: 40px;
+  min-width: auto;
+  color: rgba(0, 0, 0, 0.8);
+  font-size: 23px;
+`;
+
+const AttachAssets = styled.div`
+  align-items: center;
+  display: flex;
+  padding-right: 8px;
+  ${AssetButton} {
+    svg {
+      width: 40px;
+    }
+  }
+`;
+
+const ShareComment = styled.div`
+  padding-left: 8px;
+  margin-right: auto;
+  border-left: 1px solid rgba(0, 0, 0, 0.15);
+  ${AssetButton} {
+    svg {
+      margin-right: 5px;
+    }
+  }
+`;
+
+const PostButton = styled.button`
+  min-width: 60px;
+  border-radius: 20px;
+  padding-left: 16px;
+  padding-right: 16px;
+  background: #0a66c2;
+  color: white;
+  &:hover {
+    background: #004182;
+  }
+`;
 
 export default PostModal;
