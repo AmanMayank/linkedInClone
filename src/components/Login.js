@@ -39,16 +39,6 @@ function Login() {
         console.log(err);
       }
     }
-    // else if (user.name !== "" || user.name !== null) {
-    //   signOut(auth)
-    //     .then(() => {
-    //       dispatch(setSignOutState());
-    //       navigate("/");
-    //     })
-    //     .catch((error) => {
-    //       console.log(error);
-    //     });
-    // }
   };
 
   return (
