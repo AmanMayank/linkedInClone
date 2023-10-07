@@ -7,7 +7,7 @@ import {
 import { firebaseApp } from "../firebase";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { setUserLoginDetails, setSignOutState } from "../store";
+import { setUserLoginDetails } from "../store";
 import styled from "styled-components";
 import { useEffect } from "react";
 

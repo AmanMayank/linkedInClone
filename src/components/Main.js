@@ -11,12 +11,18 @@ import {
 import { BsCalendarEvent, BsThreeDots } from "react-icons/bs";
 import { GrArticle } from "react-icons/gr";
 import PostModal from "./PostModal";
+import { useSelector } from "react-redux";
 
 function Main() {
   const [showModal, setShowModal] = useState(false);
 
+  const posts = useSelector((state) => {
+    return state.posts;
+  });
+
+  console.log("checking...", posts, Object.keys(posts));
+
   const handleClick = (e) => {
-    console.log("coming here", showModal);
     e.preventDefault();
     if (e.target !== e.currentTarget) {
       return;
@@ -30,6 +36,75 @@ function Main() {
       setShowModal(false);
     }
   };
+
+  const renderedPosts = Object.keys(posts).map((post, index) => {
+    console.log("image==", posts[post]);
+    return (
+      <Article>
+        <SharedActor>
+          <a>
+            <img src="/images/user.svg" alt="" />
+            <div>
+              <span>Title</span>
+              <span>Info</span>
+              {/* <span>Date</span> */}
+            </div>
+          </a>
+
+          <button>
+            <BsThreeDots></BsThreeDots>
+          </button>
+        </SharedActor>
+
+        <Description>Description</Description>
+        <Sharedimg>
+          <a>
+            <img src={posts[post]} alt="" />
+          </a>
+        </Sharedimg>
+
+        <SocialCounts>
+          <li>
+            <button>
+              <img
+                src="https://static-exp1.licdn.com/sc/h/d310t2g24pvdy4pt1jkedo4yb"
+                alt=""
+              />
+              <img
+                src="https://static-exp1.licdn.com/sc/h/5thsbmikm6a8uov24ygwd914f"
+                alt=""
+              />
+              <span>75</span>
+            </button>
+          </li>
+
+          <li>
+            <a>2 comments</a>
+          </li>
+        </SocialCounts>
+
+        <SocialActions>
+          <button>
+            <AiFillLike></AiFillLike>
+            <span>Like</span>
+          </button>
+          <button>
+            <AiOutlineComment></AiOutlineComment>
+            <span>Comments</span>
+          </button>
+          <button>
+            <AiOutlineShareAlt></AiOutlineShareAlt>
+            <span>Share</span>
+          </button>
+          <button>
+            <AiOutlineSend></AiOutlineSend>
+            <span>Send</span>
+          </button>
+        </SocialActions>
+      </Article>
+    );
+  });
+
   return (
     <Container>
       <ShareBox>
@@ -76,7 +151,7 @@ function Main() {
               <div>
                 <span>Title</span>
                 <span>Info</span>
-                <span>Date</span>
+                {/* <span>Date</span> */}
               </div>
             </a>
 
@@ -131,6 +206,8 @@ function Main() {
             </button>
           </SocialActions>
         </Article>
+
+        {renderedPosts}
       </div>
       <PostModal showModal={showModal} handleClick={handleClick} />
     </Container>

@@ -7,9 +7,13 @@ import {
   AiOutlineComment,
 } from "react-icons/ai";
 import ReactPlayer from "react-player";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { Timestamp } from "firebase/firestore";
+import { setPosts } from "../store";
 
 function PostModal(props) {
+  const dispatch = useDispatch();
+
   const [editorText, setEditorText] = useState("");
   const [shareImage, setShareImage] = useState("");
   const [videoLink, setVideoLink] = useState("");
@@ -42,6 +46,24 @@ function PostModal(props) {
     setShareImage("");
     setVideoLink("");
     setAssetArea(area);
+  };
+
+  const postArticle = (e) => {
+    e.preventDefault();
+    if (e.target !== e.currentTarget) {
+      return;
+    }
+
+    const payload = {
+      image: shareImage,
+      video: videoLink,
+      // user: user,
+      description: editorText,
+      // timestamp: Timestamp,
+    };
+
+    dispatch(setPosts(payload));
+    reset(e);
   };
 
   return (
@@ -124,7 +146,10 @@ function PostModal(props) {
                 </AssetButton>
               </ShareComment>
 
-              <PostButton disabled={!editorText ? true : false}>
+              <PostButton
+                disabled={!editorText ? true : false}
+                onClick={(e) => postArticle(e)}
+              >
                 Post
               </PostButton>
             </SharedCreation>
