@@ -12,15 +12,20 @@ import { BsCalendarEvent, BsThreeDots } from "react-icons/bs";
 import { GrArticle } from "react-icons/gr";
 import PostModal from "./PostModal";
 import { useSelector } from "react-redux";
+import ReactPlayer from "react-player";
 
 function Main() {
   const [showModal, setShowModal] = useState(false);
 
   const posts = useSelector((state) => {
-    return state.posts;
+    return state.posts.data;
   });
 
-  console.log("checking...", posts, Object.keys(posts));
+  const user = useSelector((state) => {
+    return state.users;
+  });
+
+  console.log("checking...", typeof posts);
 
   const handleClick = (e) => {
     e.preventDefault();
@@ -37,13 +42,17 @@ function Main() {
     }
   };
 
-  const renderedPosts = Object.keys(posts).map((post, index) => {
-    console.log("image==", posts[post]);
+  const renderedPosts = posts.map((post, index) => {
+    console.log("image==", post);
     return (
       <Article>
         <SharedActor>
           <a>
-            <img src="/images/user.svg" alt="" />
+            {user && user.photo ? (
+              <img src={user.photo} alt="user" />
+            ) : (
+              <img src="/images/user.svg" alt="user" />
+            )}
             <div>
               <span>Title</span>
               <span>Info</span>
@@ -56,10 +65,11 @@ function Main() {
           </button>
         </SharedActor>
 
-        <Description>Description</Description>
+        <Description>{post.description}</Description>
         <Sharedimg>
           <a>
-            <img src={posts[post]} alt="" />
+            {post.image && <img src={URL.createObjectURL(post.image)} alt="" />}
+            {post.video && <ReactPlayer width={"100%"} url={post.video} />}
           </a>
         </Sharedimg>
 

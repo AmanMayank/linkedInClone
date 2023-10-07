@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const postSlice = createSlice({
   name: "posts",
   initialState: {
+    data: [],
     // actor: {
     //   name: "",
     //   email: "",
@@ -18,7 +19,7 @@ const postSlice = createSlice({
       // state.actor.name = action.payload.user.displayName;
       // state.actor.email = action.payload.user.email;
       // state.actor.photo = action.payload.user.photoURL;
-
+      state.data.push(action.payload);
       state.image = action.payload.image.name;
       state.video = action.payload.video;
       state.description = action.payload.description;
